@@ -70,31 +70,6 @@ int main() {
         }
         sleep_ms(500);
        
-       uint8_t buff[14] = {0};
-        mcp2515_read_rx_buffer(0, buff, tx_frame.datalen+5);
-        for(int i = 0; i<14; i++){
-                printf("waarde1 = %02X\n",buff[i]);
-                }
-                
-        // Construct 2 CAN data frames, we will filter one out later ...
-        // Frame 2
-        tx_frame.id = 0x50;
-        tx_frame.datalen = 2;
-        tx_frame.data[0] = 0x01; //(uint8_t) x;
-        tx_frame.data[1] = 0x02; //(uint8_t) (x>>8);
-        x++;
-  
-        // ... and sent it out        
-        if( can_tx_extended_data_frame(&tx_frame) ) {
-            printf("can_tx_extended_data_frame() ERROR!\n");
-        }
-        sleep_ms(500);
-        
-        mcp2515_read_rx_buffer(0, buff, tx_frame.datalen+5);
-        for(int i = 0; i<14; i++){
-                printf("waarde2 = %02X\n",buff[i]);
-                }
-                
         
     }
 }
